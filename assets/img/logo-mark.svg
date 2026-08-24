@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 124" role="img" aria-label="Jasmine">
+  <circle cx="62" cy="62" r="62" fill="#7A1C26"/>
+  <circle cx="62" cy="62" r="50" fill="none" stroke="#C9A44C" stroke-width="1.8" opacity=".85"/>
+  <text x="62" y="63" text-anchor="middle" dominant-baseline="central"
+        font-family="Georgia,'Times New Roman',serif" font-size="74" fill="#C9A44C">J</text>
+</svg>
