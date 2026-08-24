@@ -25,6 +25,7 @@
   --sec:clamp(64px,7vw,110px);
 
   --fill:var(--gold-ink);       /* لون العناصر النائبة، يتبدل في الأقسام الداكنة */
+  --rule:var(--line);           /* لون الخطوط الفاصلة، يتبدل كذلك */
   --surface:var(--paper);
 }
 
@@ -45,9 +46,9 @@ a{color:inherit}
 .sec{padding:var(--sec) 0}
 .s-white{background:var(--paper)}
 .s-light{background:var(--paper-2)}
-.s-dark{background:var(--night);color:#fff;--fill:var(--gold-lt);--surface:var(--night-2)}
-.s-dark-2{background:var(--night-2);color:#fff;--fill:var(--gold-lt);--surface:var(--night)}
-.s-dark-3{background:var(--night-3);color:#fff;--fill:var(--gold-lt);--surface:var(--night-2)}
+.s-dark{background:var(--night);color:#fff;--fill:var(--gold-lt);--rule:var(--line-d);--surface:var(--night-2)}
+.s-dark-2{background:var(--night-2);color:#fff;--fill:var(--gold-lt);--rule:var(--line-d);--surface:var(--night)}
+.s-dark-3{background:var(--night-3);color:#fff;--fill:var(--gold-lt);--rule:var(--line-d);--surface:var(--night-2)}
 
 /* ---------------- الطباعة ---------------- */
 h1,h2,h3,h4{font-family:var(--head);color:var(--ink);text-wrap:balance;letter-spacing:-.02em}
@@ -237,22 +238,24 @@ h3{font-weight:700;font-size:clamp(18px,1.3vw,22px);line-height:1.5}
 .hero-side p{color:var(--muted-d);font-size:15px;line-height:1.9}
 
 .stats{
-  margin-top:clamp(48px,5vw,86px);border-top:1px solid var(--line-d);
+  margin-top:clamp(48px,5vw,86px);border-top:1px solid var(--rule);
   display:grid;grid-template-columns:repeat(4,1fr);
 }
-.stats > div{padding:clamp(22px,2.2vw,32px) clamp(14px,1.6vw,28px);border-left:1px solid var(--line-d)}
+.stats > div{padding:clamp(22px,2.2vw,32px) clamp(14px,1.6vw,28px);border-left:1px solid var(--rule)}
 .stats > div:last-child{border-left:0}
-.stats b{display:block;font-family:var(--head);font-weight:800;color:#fff;
+.stats b{display:block;font-family:var(--head);font-weight:800;color:var(--ink);
   font-size:clamp(20px,2.1vw,30px);line-height:1.25;letter-spacing:-.02em}
-.stats > div > span{display:block;font-size:12.5px;color:var(--muted-d);margin-top:7px;line-height:1.7}
+.stats > div > span{display:block;font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.7}
+.s-dark .stats b,.s-dark-2 .stats b,.s-dark-3 .stats b{color:#fff}
+.s-dark .stats > div > span,.s-dark-2 .stats > div > span,.s-dark-3 .stats > div > span{color:var(--muted-d)}
 @media(max-width:820px){
   .stats{grid-template-columns:repeat(2,1fr)}
   .stats > div:nth-child(2n){border-left:0}
-  .stats > div:nth-child(-n+2){border-bottom:1px solid var(--line-d)}
+  .stats > div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
 }
 @media(max-width:420px){
   .stats{grid-template-columns:1fr}
-  .stats > div{border-left:0;border-bottom:1px solid var(--line-d)}
+  .stats > div{border-left:0;border-bottom:1px solid var(--rule)}
   .stats > div:last-child{border-bottom:0}
 }
 
@@ -511,7 +514,7 @@ tr:last-child td{border-bottom:0}
 /* ================================================================
    التذييل
    ================================================================ */
-footer{background:var(--night);color:var(--muted-d);--fill:var(--gold-lt);
+footer{background:var(--night);color:var(--muted-d);--fill:var(--gold-lt);--rule:var(--line-d);
   padding:clamp(48px,5vw,80px) 0 clamp(30px,3vw,44px);border-top:1px solid var(--line-d)}
 .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:clamp(24px,2.6vw,46px)}
 @media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:32px}}
