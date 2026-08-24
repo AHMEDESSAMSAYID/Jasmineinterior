@@ -3,6 +3,11 @@
   "use strict";
 
   var CFG = window.JASMINE_CONFIG || {};
+  var BASE = window.SITE_BASE || "";
+  function asset(path) {
+    if (!path) return "";
+    return /^(https?:|\/|data:)/.test(path) ? path : BASE + path;
+  }
 
   /* ---------- أدوات مساعدة ---------- */
   function get(path) {
@@ -101,7 +106,12 @@
   /* ---------- البريد والقسم الغذائي والخريطة ---------- */
   var email = val("business.email");
   document.querySelectorAll("[data-email]").forEach(function (el) {
-    if (email) { el.setAttribute("href", "mailto:" + email); el.textContent = email; }
+    if (email) {
+      el.setAttribute("href", "mailto:" + email);
+      if (el.hasAttribute("data-email-text")) el.textContent = email;
+    } else if (el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
   });
   var food = val("business.foodDivisionUrl");
   document.querySelectorAll("[data-food]").forEach(function (el) {
@@ -126,7 +136,7 @@
     if (img && p.photo) {
       img.addEventListener("load", function () { box.classList.add("has-photo"); });
       img.addEventListener("error", function () { box.classList.remove("has-photo"); });
-      img.setAttribute("src", p.photo);
+      img.setAttribute("src", asset(p.photo));
       if (p.name) img.setAttribute("alt", p.name);
     }
   });
@@ -153,6 +163,35 @@
       return '<li><a href="' + it.url + '"' + ext + ' aria-label="' + LABELS[it.key] +
              '" title="' + LABELS[it.key] + '">' + icon(it.key) + "</a></li>";
     }).join("");
+  });
+
+
+  /* ---------- قائمة وسائل التواصل (صفحة تواصل معنا) ---------- */
+  document.querySelectorAll("[data-contact-list]").forEach(function (list) {
+    var rows = [];
+    if (mainWa) rows.push(["whatsapp", "واتساب", "راسلنا مباشرة", mainWa]);
+    if (email)  rows.push(["email", "البريد الإلكتروني", email, "mailto:" + email]);
+    if (phone)  rows.push(["phone", "هاتف المكتب", val("business.phone"), phone]);
+
+    var addr = [val("business.address.street"), val("business.address.district"),
+                val("business.address.region")].filter(Boolean).join("، ");
+    rows.push(["maps", "العنوان",
+      (addr ? addr + "<br>" : "") + "إسطنبول، تركيا", maps || ""]);
+
+    var hours = val("business.hours");
+    if (hours) rows.push(["clock", "ساعات العمل", hours, ""]);
+
+    list.innerHTML = rows.map(function (r) {
+      var body = r[3]
+        ? '<a href="' + r[3] + '"' + (/^https?:/i.test(r[3]) ? ' target="_blank" rel="noopener"' : "") + '>' + r[2] + "</a>"
+        : "<span>" + r[2] + "</span>";
+      return "<li>" + icon(r[0]) + "<div><strong>" + r[1] + "</strong>" + body + "</div></li>";
+    }).join("");
+  });
+
+  /* ---------- علامة الصح داخل القوائم ---------- */
+  document.querySelectorAll(".check-list li").forEach(function (li) {
+    if (!li.querySelector("svg")) li.insertAdjacentHTML("afterbegin", icon("check"));
   });
 
   /* ---------- أيقونات داخل الأزرار ---------- */
