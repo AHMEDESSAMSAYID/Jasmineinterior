@@ -75,12 +75,18 @@
       '<path ' + S + ' d="M6.1 4.3h2.6l1.3 3.3-1.7 1.2a10.6 10.6 0 0 0 4.9 4.9l1.2-1.7 3.3 1.3v2.6c0 .9-.8 1.7-1.7 1.6C9.2 17 7 14.8 4.5 6c-.1-.9.7-1.7 1.6-1.7z"/>',
     maps:
       '<path ' + S + ' d="M12 21s6.8-6.2 6.8-10.8a6.8 6.8 0 1 0-13.6 0C5.2 14.8 12 21 12 21z"/>' +
-      '<circle ' + S + ' cx="12" cy="10.1" r="2.5"/>'
+      '<circle ' + S + ' cx="12" cy="10.1" r="2.5"/>',
+    check:
+      '<path ' + S + ' d="m4 12.4 5.2 5.2L20 6.8"/>',
+    clock:
+      '<circle ' + S + ' cx="12" cy="12" r="8.6"/>' +
+      '<path ' + S + ' d="M12 7.2V12l3.2 2"/>'
   };
   var LABELS = {
     whatsapp: "واتساب", instagram: "إنستغرام", linkedin: "لينكدإن",
     facebook: "فيسبوك", x: "إكس", tiktok: "تيك توك", youtube: "يوتيوب",
-    telegram: "تيليغرام", email: "البريد الإلكتروني", phone: "هاتف", maps: "الموقع على الخريطة"
+    telegram: "تيليغرام", email: "البريد الإلكتروني", phone: "هاتف", maps: "الموقع على الخريطة",
+    check: "", clock: "ساعات العمل"
   };
   function icon(name) {
     return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (ICONS[name] || "") + "</svg>";
@@ -168,6 +174,25 @@
       var ext = /^https?:/i.test(it.url) ? ' target="_blank" rel="noopener"' : "";
       return '<li><a href="' + it.url + '"' + ext + ' aria-label="' + LABELS[it.key] +
              '" title="' + LABELS[it.key] + '">' + icon(it.key) + "</a></li>";
+    }).join("");
+  });
+
+  /* ---------- صف التواصل الاجتماعي في التذييل ----------
+     ترتيب ثابت من خمس منصات. الرابط غير المعبّأ في config.js يبقى
+     عنصراً نائباً ظاهراً ليسهل العثور عليه واستبداله. */
+  var FOOTER_SOCIAL = [
+    ["tiktok",    "[رابط-تيك-توك]"],
+    ["instagram", "[رابط-إنستجرام]"],
+    ["x",         "[رابط-إكس]"],
+    ["facebook",  "[رابط-فيسبوك]"],
+    ["linkedin",  "[رابط-لينكد-إن]"]
+  ];
+  document.querySelectorAll("[data-social-footer]").forEach(function (list) {
+    list.innerHTML = FOOTER_SOCIAL.map(function (row) {
+      var key = row[0], url = (social[key] || "").trim() || row[1];
+      var ext = /^https?:/i.test(url) ? ' target="_blank" rel="noopener"' : "";
+      return '<li><a href="' + url + '"' + ext + ' aria-label="' + LABELS[key] +
+             '" title="' + LABELS[key] + '">' + icon(key) + "</a></li>";
     }).join("");
   });
 

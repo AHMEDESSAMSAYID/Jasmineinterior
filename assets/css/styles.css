@@ -502,6 +502,20 @@ tr:last-child td{border-bottom:0}
 .s-dark .social a,.s-dark-2 .social a,footer .social a{border-color:var(--line-d);color:var(--muted-d)}
 .s-dark .social a:hover,.s-dark-2 .social a:hover,footer .social a:hover{color:var(--gold-lt);border-color:var(--gold)}
 
+/* صف التواصل الاجتماعي في التذييل — مواصفات ثابتة.
+   التذييل يحمل الصنف s-dark، فلا بد أن تضاهي هذه القواعد أولوية
+   ".s-dark .social a" وتأتي بعدها في الملف. */
+.s-dark .social-footer,footer .social-footer{gap:10px;flex-wrap:wrap}
+.s-dark .social-footer a,footer .social-footer a{
+  width:40px;height:40px;border:1px solid rgba(255,255,255,.15);color:#8A9AAB;
+  transition:color .2s,border-color .2s;
+}
+.s-dark .social-footer a:hover,footer .social-footer a:hover,
+.s-dark .social-footer a:focus-visible,footer .social-footer a:focus-visible{
+  color:var(--gold);border-color:var(--gold)
+}
+.s-dark .social-footer svg,footer .social-footer svg{width:18px;height:18px}
+
 /* ================================================================
    الدعوة النهائية
    ================================================================ */

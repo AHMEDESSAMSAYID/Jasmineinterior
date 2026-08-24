@@ -13,9 +13,9 @@
     { label: "مجالات التوريد", href: "products/index.html", children: [
       { label: "جميع المجالات", href: "products/index.html", note: "نظرة عامة على ما نوفّره" },
       { sep: true },
-      { label: "الحمامات", href: "products/bathroom.html" },
+      { label: "تجهيزات الحمام", href: "products/bathroom.html" },
       { label: "تجهيزات المطاعم والفنادق", href: "products/hospitality.html" },
-      { label: "الأرضيات والمنسوجات", href: "products/furnishings.html" },
+      { label: "الأرضيات والسجاد", href: "products/furnishings.html" },
       { label: "التشطيبات والإكسسوارات", href: "products/finishes.html" }
     ]},
     { label: "آلية العمل", href: "process.html" },
@@ -123,9 +123,9 @@
           '<p>قسم التشطيبات والتجهيزات — تابع لشركة جاسمين للاستيراد والتصدير.<br>' +
           'شركة مسجلة في تركيا منذ <span class="fill" data-cfg="business.foundedYear" data-ar-digits>[٢٠١٧]</span>.</p></div>' +
         '<div><strong>مجالات التوريد</strong>' + links([
-          ["الحمامات", "products/bathroom.html"],
+          ["تجهيزات الحمام", "products/bathroom.html"],
           ["تجهيزات المطاعم والفنادق", "products/hospitality.html"],
-          ["الأرضيات والمنسوجات", "products/furnishings.html"],
+          ["الأرضيات والسجاد", "products/furnishings.html"],
           ["التشطيبات والإكسسوارات", "products/finishes.html"]
         ]) + '</div>' +
         '<div><strong>الشركة</strong>' + links([
@@ -141,7 +141,7 @@
           'إسطنبول، تركيا<br>' +
           '<a data-email href="mailto:">البريد الإلكتروني</a></p></div>' +
       '</div>' +
-      '<div class="fsocial"><ul class="social" data-social aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
+      '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
       '<div class="legal">' +
         'رقم السجل التجاري: <span class="fill" data-cfg="business.registrationNumber">[رقم السجل]</span> · ' +
         'الرقم الضريبي: <span class="fill" data-cfg="business.taxNumber">[الرقم الضريبي]</span> · ' +
