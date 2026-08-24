@@ -10,20 +10,21 @@
   /* ---------- بنية القائمة ---------- */
   var NAV = [
     { label: "الرئيسية", href: "index.html" },
-    { label: "الشركة", href: "about.html", children: [
-      { label: "من نحن", href: "about.html", note: "من نحن وكيف بدأنا" },
-      { label: "فريق العمل", href: "about.html#team" },
-      { label: "سجل الشحنات", href: "shipments.html" }
-    ]},
     { label: "مجالات التوريد", href: "products/index.html", children: [
       { label: "جميع المجالات", href: "products/index.html", note: "نظرة عامة على ما نوفّره" },
       { sep: true },
-      { label: "الحمامات والأطقم الصحية", href: "products/bathroom.html" },
+      { label: "الحمامات", href: "products/bathroom.html" },
       { label: "تجهيزات المطاعم والفنادق", href: "products/hospitality.html" },
       { label: "الأرضيات والمنسوجات", href: "products/furnishings.html" },
       { label: "التشطيبات والإكسسوارات", href: "products/finishes.html" }
     ]},
     { label: "آلية العمل", href: "process.html" },
+    { label: "لماذا نحن", href: "about.html#why" },
+    { label: "الشركة", href: "about.html", children: [
+      { label: "من نحن", href: "about.html", note: "من نحن وكيف بدأنا" },
+      { label: "فريق العمل", href: "about.html#team" },
+      { label: "سجل الشحنات", href: "shipments.html" }
+    ]},
     { label: "تواصل معنا", href: "contact.html" }
   ];
 
@@ -80,23 +81,19 @@
 
     return '' +
     '<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>' +
+    '<div class="topstrip"><div class="wrap">' +
+      '<span>مكتب في إسطنبول · نخدم السوق السعودي والخليج</span>' +
+      '<span class="ts-links">' +
+        '<a data-food href="' + url("index.html") + '">القسم الغذائي</a>' +
+        '<a data-email data-email-text href="mailto:">البريد الإلكتروني</a>' +
+      '</span>' +
+    '</div></div>' +
     '<header class="site-header">' +
-      '<div class="header-top"><div class="wrap">' +
-        '<span>مكتب مشتريات في إسطنبول — نبحث ونعاين ونشحن نيابةً عنك</span>' +
-        '<span class="ht-links">' +
-          '<a data-email href="mailto:">البريد الإلكتروني</a>' +
-          '<a data-food href="' + url("index.html") + '">القسم الغذائي</a>' +
-        '</span>' +
-      '</div></div>' +
       '<div class="header-main"><div class="wrap">' +
-        '<a class="lockup" href="' + url("index.html") + '">' +
-          '<img src="' + BASE + 'assets/img/logo.svg" alt="جاسمين">' +
-          '<span class="divider"></span>' +
-          '<span class="brand">قسم التشطيبات<br>والتجهيزات</span>' +
-        '</a>' +
+        '<a class="lockup" href="' + url("index.html") + '">' +'<span class="logo-mark" aria-hidden="true">J</span>' +'<span class="logo-type"><b>JASMINE</b><span>للتشطيبات والتجهيزات</span></span>' +'</a>' +
         '<nav aria-label="القائمة الرئيسية"><ul class="nav">' + desktop + '</ul></nav>' +
         '<div class="nav-cta">' +
-          '<a class="btn" data-wa data-icon="whatsapp" href="' + url("contact.html") + '">اطلب عرض سعر</a>' +
+          '<a class="btn btn-sm" data-wa data-icon="whatsapp" href="' + url("contact.html") + '">اطلب عرض سعر</a>' +
           '<button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" ' +
           'aria-label="القائمة"><span></span><span></span><span></span></button>' +
         '</div>' +
@@ -116,14 +113,17 @@
         return '<li><a href="' + url(it[1]) + '">' + it[0] + '</a></li>';
       }).join("") + '</ul>';
     }
-    return '<footer><div class="wrap">' +
-      '<img class="flogo" src="' + BASE + 'assets/img/logo.svg" alt="جاسمين">' +
+    return '<footer class="s-dark"><div class="wrap">' +
       '<div class="fgrid">' +
-        '<div><strong>جاسمين للتشطيبات والتجهيزات</strong>' +
+        '<div>' +
+          '<a class="lockup" href="' + url("index.html") + '">' +
+            '<span class="logo-mark" aria-hidden="true">J</span>' +
+            '<span class="logo-type"><b>JASMINE</b><span>للتشطيبات والتجهيزات</span></span>' +
+          '</a>' +
           '<p>قسم التشطيبات والتجهيزات — تابع لشركة جاسمين للاستيراد والتصدير.<br>' +
           'شركة مسجلة في تركيا منذ <span class="fill" data-cfg="business.foundedYear" data-ar-digits>[٢٠١٧]</span>.</p></div>' +
         '<div><strong>مجالات التوريد</strong>' + links([
-          ["الحمامات والأطقم الصحية", "products/bathroom.html"],
+          ["الحمامات", "products/bathroom.html"],
           ["تجهيزات المطاعم والفنادق", "products/hospitality.html"],
           ["الأرضيات والمنسوجات", "products/furnishings.html"],
           ["التشطيبات والإكسسوارات", "products/finishes.html"]
@@ -143,9 +143,9 @@
       '</div>' +
       '<div class="fsocial"><ul class="social" data-social aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
       '<div class="legal">' +
-        'رقم السجل التجاري: <span class="fill" data-cfg="business.registrationNumber">[الرقم]</span> · ' +
-        'الرقم الضريبي: <span class="fill" data-cfg="business.taxNumber">[الرقم]</span> · ' +
-        'عضوية غرفة تجارة إسطنبول: <span class="fill" data-cfg="business.chamberNumber">[الرقم]</span><br>' +
+        'رقم السجل التجاري: <span class="fill" data-cfg="business.registrationNumber">[رقم السجل]</span> · ' +
+        'الرقم الضريبي: <span class="fill" data-cfg="business.taxNumber">[الرقم الضريبي]</span> · ' +
+        'عضوية غرفة تجارة إسطنبول: <span class="fill" data-cfg="business.chamberNumber">[رقم العضوية]</span><br>' +
         '© <span id="yr">2026</span> جاسمين للاستيراد والتصدير. جميع الحقوق محفوظة.' +
       '</div>' +
     '</div></footer>' +

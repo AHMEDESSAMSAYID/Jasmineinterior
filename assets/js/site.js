@@ -125,6 +125,12 @@
     var nameEl = card.querySelector("[data-person-name]");
     if (nameEl && p.name) { nameEl.textContent = p.name; nameEl.classList.remove("fill"); }
 
+    var numEl = card.querySelector("[data-person-wa-text]");
+    if (numEl && p.whatsapp) {
+      numEl.textContent = String(p.whatsapp).trim();
+      numEl.classList.remove("fill");
+    }
+
     var link = card.querySelector("[data-person-wa]");
     if (link) {
       var url = waLink(p.whatsapp) || mainWa;
@@ -169,7 +175,8 @@
   /* ---------- قائمة وسائل التواصل (صفحة تواصل معنا) ---------- */
   document.querySelectorAll("[data-contact-list]").forEach(function (list) {
     var rows = [];
-    if (mainWa) rows.push(["whatsapp", "واتساب", "راسلنا مباشرة", mainWa]);
+    rows.push(["whatsapp", "واتساب",
+      mainWa ? val("whatsapp") : '<span class="fill">[رقم-الواتساب]</span>', mainWa]);
     if (email)  rows.push(["email", "البريد الإلكتروني", email, "mailto:" + email]);
     if (phone)  rows.push(["phone", "هاتف المكتب", val("business.phone"), phone]);
 
