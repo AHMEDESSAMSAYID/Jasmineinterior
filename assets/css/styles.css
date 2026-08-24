@@ -553,6 +553,16 @@ footer a:hover{color:var(--gold-lt)}
   html{scroll-behavior:auto}
 }
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.skip-link{position:absolute;right:-9999px;top:0;background:var(--gold);color:var(--night);
-  padding:12px 22px;z-index:200;font-family:var(--head);font-weight:700;font-size:14px;text-decoration:none}
-.skip-link:focus{right:12px;top:12px}
+
+/* رابط التخطي: مخفي بصرياً دون إزاحته خارج الصفحة —
+   الإزاحة بـ right سالب توسّع عرض الصفحة في الاتجاه من اليمين لليسار */
+.skip-link{
+  position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+  background:var(--gold);color:var(--night);padding:12px 22px;z-index:200;
+  font-family:var(--head);font-weight:700;font-size:14px;text-decoration:none;
+}
+.skip-link:focus{
+  position:fixed;top:12px;right:12px;width:auto;height:auto;
+  overflow:visible;clip:auto;clip-path:none;
+}
