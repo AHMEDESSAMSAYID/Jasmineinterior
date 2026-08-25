@@ -123,7 +123,10 @@
       whatsapp: val("PARTNER_2_WHATSAPP"), email: val("PARTNER_2_EMAIL") }
   ];
   document.querySelectorAll("[data-person]").forEach(function (card, i) {
-    var p = team[i] || {};
+    /* الرقم مأخوذ من السمة لا من ترتيب البطاقة، حتى لا يختل الربط
+       إذا تكررت البطاقات أو أُعيد ترتيبها */
+    var idx = parseInt(card.getAttribute("data-person"), 10);
+    var p = team[(isNaN(idx) ? i + 1 : idx) - 1] || {};
     var nameEl = card.querySelector("[data-person-name]");
     if (nameEl && p.name) { nameEl.textContent = p.name; nameEl.classList.remove("fill"); }
 
