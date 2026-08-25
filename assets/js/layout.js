@@ -15,7 +15,6 @@
       { sep: true },
       { label: "تجهيزات الحمام", href: "products/bathroom.html" },
       { label: "تجهيزات المطاعم والفنادق", href: "products/hospitality.html" },
-      { label: "الأرضيات والسجاد", href: "products/furnishings.html" },
       { label: "التشطيبات والإكسسوارات", href: "products/finishes.html" }
     ]},
     { label: "آلية العمل", href: "process.html" },
@@ -84,7 +83,6 @@
     '<div class="topstrip"><div class="wrap">' +
       '<span>مكتب في إسطنبول · نخدم السوق السعودي والخليج</span>' +
       '<span class="ts-links">' +
-        '<a data-food href="' + url("index.html") + '">القسم الغذائي</a>' +
         '<a data-email data-email-text href="mailto:">البريد الإلكتروني</a>' +
       '</span>' +
     '</div></div>' +
@@ -125,7 +123,6 @@
         '<div><strong>مجالات التوريد</strong>' + links([
           ["تجهيزات الحمام", "products/bathroom.html"],
           ["تجهيزات المطاعم والفنادق", "products/hospitality.html"],
-          ["الأرضيات والسجاد", "products/furnishings.html"],
           ["التشطيبات والإكسسوارات", "products/finishes.html"]
         ]) + '</div>' +
         '<div><strong>الشركة</strong>' + links([
@@ -143,8 +140,10 @@
       '</div>' +
       '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
       '<div class="legal">' +
+        '<span data-env="COMPANY_LEGAL_NAME" dir="ltr"></span><br>' +
+        'الرقم الضريبي: <span class="fill" data-env="TAX_NUMBER">[الرقم الضريبي]</span> — ' +
+        'مديرية ضرائب <span class="fill" data-env="TAX_OFFICE">[المديرية]</span> · ' +
         'رقم السجل التجاري: <span class="fill" data-env="REGISTRATION_NUMBER">[رقم السجل]</span> · ' +
-        'الرقم الضريبي: <span class="fill" data-env="TAX_NUMBER">[الرقم الضريبي]</span> · ' +
         'عضوية غرفة تجارة إسطنبول: <span class="fill" data-env="CHAMBER_NUMBER">[رقم العضوية]</span><br>' +
         '© <span id="yr">2026</span> جاسمين للاستيراد والتصدير. جميع الحقوق محفوظة.' +
       '</div>' +

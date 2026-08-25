@@ -289,8 +289,8 @@ h3{font-weight:700;font-size:clamp(18px,1.3vw,22px);line-height:1.5}
 /* ================================================================
    بطاقات المجالات
    ================================================================ */
-.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,1.5vw,24px)}
-@media(max-width:1120px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.5vw,24px)}
+@media(max-width:1000px){.cat-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.cat-grid{grid-template-columns:1fr}}
 
 .cat{
@@ -444,6 +444,12 @@ tr:last-child td{border-bottom:0}
 }
 .person > div > a svg{width:16px;height:16px}
 .person > div > a:hover{color:var(--gold-ink);border-color:var(--gold)}
+.person-mail{margin-top:12px}
+.person-mail a{font-size:13.5px;color:var(--muted);text-decoration:none;border:0;
+  word-break:break-word;transition:color .2s}
+.person-mail a:hover{color:var(--gold-ink)}
+.s-dark .person-mail a,.s-dark-2 .person-mail a{color:var(--muted-d)}
+.s-dark .person-mail a:hover,.s-dark-2 .person-mail a:hover{color:var(--gold-lt)}
 .s-dark .person > div > a,.s-dark-2 .person > div > a{color:#fff;border-color:var(--line-d)}
 .s-dark .person > div > a:hover,.s-dark-2 .person > div > a:hover{color:var(--gold-lt);border-color:var(--gold)}
 

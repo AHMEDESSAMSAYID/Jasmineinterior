@@ -29,10 +29,10 @@ window.ENV = {
 |---|---|
 | ١ · واتساب | `WHATSAPP_MAIN` · `PARTNER_1_WHATSAPP` · `PARTNER_2_WHATSAPP` |
 | ٢ · السوشيال ميديا | `TIKTOK` · `INSTAGRAM` · `X` · `FACEBOOK` · `LINKEDIN` · `YOUTUBE` · `TELEGRAM` |
-| ٣ · التواصل | `EMAIL` · `PHONE` · `WORK_HOURS` · `MAPS_URL` · `FOOD_DIVISION_URL` |
+| ٣ · التواصل | `EMAIL` · `PHONE` · `WORK_HOURS` · `MAPS_URL` |
 | ٤ · العنوان | `ADDRESS_STREET` · `ADDRESS_DISTRICT` · `ADDRESS_REGION` |
-| ٥ · بيانات الشركة | `FOUNDED_YEAR` · `YEARS_EXPORTING` · `REGISTRATION_NUMBER` · `TAX_NUMBER` · `CHAMBER_NUMBER` |
-| ٦ · الشريكان | `PARTNER_1_NAME` · `PARTNER_1_PHOTO` · `PARTNER_2_NAME` · `PARTNER_2_PHOTO` |
+| ٥ · بيانات الشركة | `COMPANY_LEGAL_NAME` · `FOUNDED_YEAR` · `TAX_NUMBER` · `TAX_OFFICE` · `REGISTRATION_NUMBER` · `CHAMBER_NUMBER` |
+| ٦ · الشريكان | `PARTNER_1_NAME` · `PARTNER_1_EMAIL` · `PARTNER_1_PHOTO` · `PARTNER_2_NAME` · `PARTNER_2_EMAIL` · `PARTNER_2_PHOTO` |
 
 قواعد مهمة:
 
@@ -75,7 +75,6 @@ products/
   index.html               مجالات التوريد — نظرة عامة
   bathroom.html            تجهيزات الحمام
   hospitality.html         تجهيزات المطاعم والفنادق
-  furnishings.html         الأرضيات والسجاد
   finishes.html            التشطيبات والإكسسوارات
 
 env.js                     ← الأرقام والروابط (هذا هو الملف الذي تعدّله)
@@ -99,7 +98,7 @@ assets/
 | العنصر | قائمة منسدلة |
 |---|---|
 | الرئيسية | — |
-| مجالات التوريد | جميع المجالات · تجهيزات الحمام · تجهيزات المطاعم والفنادق · الأرضيات والسجاد · التشطيبات والإكسسوارات |
+| مجالات التوريد | جميع المجالات · تجهيزات الحمام · تجهيزات المطاعم والفنادق · التشطيبات والإكسسوارات |
 | آلية العمل | — |
 | لماذا نحن | — |
 | الشركة | من نحن · فريق العمل · سجل الشحنات |
@@ -151,9 +150,9 @@ python3 -m http.server 8000
 
 ## ✅ قائمة ما قبل النشر
 
-- [ ] تعبئة `env.js` بالأرقام والروابط الحقيقية
+- [ ] وضع روابط السوشيال ميديا في `env.js`
+- [ ] إضافة رقم السجل التجاري ورقم عضوية الغرفة التجارية
 - [ ] رفع صورتَي الشريكين في `assets/team/`
 - [ ] التأكد من عمل زر الواتساب على الجوال
-- [ ] وضع رابط القسم الغذائي في `business.foodDivisionUrl`
 - [ ] تعبئة قسم «سجل الشحنات» بصور وبيانات الشحنات (متروك فارغاً حالياً عن قصد)
 - [ ] مراجعة نصوص صفحات مجالات التوريد وتعديل ما لا يطابق واقع عملكم

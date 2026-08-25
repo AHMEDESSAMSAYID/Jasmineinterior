@@ -105,7 +105,7 @@
     else el.setAttribute("href", "#contact");
   });
 
-  /* ---------- البريد والقسم الغذائي والخريطة ---------- */
+  /* ---------- البريد الإلكتروني ---------- */
   var email = val("EMAIL");
   document.querySelectorAll("[data-email]").forEach(function (el) {
     if (email) {
@@ -115,25 +115,26 @@
       el.parentNode.removeChild(el);
     }
   });
-  var food = val("FOOD_DIVISION_URL");
-  document.querySelectorAll("[data-food]").forEach(function (el) {
-    if (food) el.setAttribute("href", food);
-  });
-
   /* ---------- الفريق: الأسماء والصور وروابط الواتساب ---------- */
   var team = [
-    { name: val("PARTNER_1_NAME"), photo: val("PARTNER_1_PHOTO"), whatsapp: val("PARTNER_1_WHATSAPP") },
-    { name: val("PARTNER_2_NAME"), photo: val("PARTNER_2_PHOTO"), whatsapp: val("PARTNER_2_WHATSAPP") }
+    { name: val("PARTNER_1_NAME"), photo: val("PARTNER_1_PHOTO"),
+      whatsapp: val("PARTNER_1_WHATSAPP"), email: val("PARTNER_1_EMAIL") },
+    { name: val("PARTNER_2_NAME"), photo: val("PARTNER_2_PHOTO"),
+      whatsapp: val("PARTNER_2_WHATSAPP"), email: val("PARTNER_2_EMAIL") }
   ];
   document.querySelectorAll("[data-person]").forEach(function (card, i) {
     var p = team[i] || {};
     var nameEl = card.querySelector("[data-person-name]");
     if (nameEl && p.name) { nameEl.textContent = p.name; nameEl.classList.remove("fill"); }
 
-    var numEl = card.querySelector("[data-person-wa-text]");
-    if (numEl && p.whatsapp) {
-      numEl.textContent = String(p.whatsapp).trim();
-      numEl.classList.remove("fill");
+    var mailEl = card.querySelector("[data-person-email]");
+    if (mailEl) {
+      if (p.email) {
+        mailEl.setAttribute("href", "mailto:" + p.email);
+        mailEl.textContent = p.email;
+      } else if (mailEl.parentNode) {
+        mailEl.parentNode.removeChild(mailEl);
+      }
     }
 
     var link = card.querySelector("[data-person-wa]");
@@ -203,8 +204,7 @@
   /* ---------- قائمة وسائل التواصل (صفحة تواصل معنا) ---------- */
   document.querySelectorAll("[data-contact-list]").forEach(function (list) {
     var rows = [];
-    rows.push(["whatsapp", "واتساب",
-      mainWa ? val("WHATSAPP_MAIN") : '<span class="fill">[رقم-الواتساب]</span>', mainWa]);
+    rows.push(["whatsapp", "واتساب", "راسلنا مباشرة على واتساب", mainWa]);
     if (email)  rows.push(["email", "البريد الإلكتروني", email, "mailto:" + email]);
     if (phone)  rows.push(["phone", "هاتف المكتب", val("PHONE"), phone]);
 
