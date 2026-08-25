@@ -64,8 +64,8 @@ window.ENV = {
      الصور: ضعها في مجلد assets/team/ بنفس هذين الاسمين.
      --------------------------------------------------------------- */
   PARTNER_1_NAME:       "",   // الاسم الكامل للشريك الأول
-  PARTNER_1_PHOTO:      "assets/team/partner-1.jpg",
+  PARTNER_1_PHOTO:      "assets/team/1784018649306.jpg",
   PARTNER_2_NAME:       "",   // مثال: "د. أشرف عبد الله"
-  PARTNER_2_PHOTO:      "assets/team/partner-2.jpg",
+  PARTNER_2_PHOTO:      "assets/team/ashraf.jpeg",
 
 };
