@@ -40,12 +40,12 @@ window.JASMINE_CONFIG = {
   team: [
     {
       name:     "",                              // الاسم الكامل للشريك الأول
-      photo:    "assets/team/partner-1.jpg",
+      photo:    "assets/team/1784018649306.jpg",
       whatsapp: "",                              // رقم واتسابه
     },
     {
       name:     "",                              // مثال: "د. أشرف عبد الله"
-      photo:    "assets/team/partner-2.jpg",
+      photo:    "assets/team/ashraf.jpeg",
       whatsapp: "",                              // رقم واتسابه
     },
   ],
