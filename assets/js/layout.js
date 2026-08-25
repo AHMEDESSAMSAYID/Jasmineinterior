@@ -3,8 +3,9 @@
 (function () {
   "use strict";
 
-  var BASE = window.SITE_BASE || "";          // "" في الجذر، "../" داخل مجلد products
-  var HERE = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  var BASE = window.SITE_BASE || "";   // المسار إلى جذر المستودع — للأصول المشتركة
+  /* اسم الملف: تُعلنه الصفحة صراحةً إن أمكن، وإلا يُقرأ من المسار */
+  var HERE = (window.SITE_PAGE || location.pathname.split("/").pop() || "index.html").toLowerCase();
   var INPRODUCTS = window.SITE_IN_PRODUCTS != null
     ? !!window.SITE_IN_PRODUCTS
     : /\/products\//.test(location.pathname);
@@ -105,9 +106,11 @@
     return (INPRODUCTS ? "../en/products/" : "en/") + file;
   }
 
+  /* روابط التنقّل نسبية إلى جذر اللغة الحالية، لا إلى جذر المستودع:
+     صفحات en/ تربط داخل en/، وصفحات الجذر تربط داخل الجذر. */
   function url(href) {
     if (/^(https?:|mailto:|tel:|#)/.test(href)) return href;
-    return BASE + href;
+    return (INPRODUCTS ? "../" : "") + href;
   }
   function isCurrent(href) {
     var file = href.split("#")[0].split("/").pop().toLowerCase();
