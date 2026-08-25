@@ -4,6 +4,8 @@
 
   var ENV = window.ENV || {};
   var BASE = window.SITE_BASE || "";
+  var EN = document.documentElement.lang === "en";
+  function pick(ar, en) { return EN ? en : ar; }
   function asset(path) {
     if (!path) return "";
     return /^(https?:|\/|data:)/.test(path) ? path : BASE + path;
@@ -78,12 +80,19 @@
       '<circle ' + S + ' cx="12" cy="12" r="8.6"/>' +
       '<path ' + S + ' d="M12 7.2V12l3.2 2"/>'
   };
-  var LABELS = {
+  var LABELS_AR = {
     whatsapp: "واتساب", instagram: "إنستغرام", linkedin: "لينكدإن",
     facebook: "فيسبوك", x: "إكس", tiktok: "تيك توك", youtube: "يوتيوب",
     telegram: "تيليغرام", email: "البريد الإلكتروني", phone: "هاتف", maps: "الموقع على الخريطة",
     check: "", clock: "ساعات العمل"
   };
+  var LABELS_EN = {
+    whatsapp: "WhatsApp", instagram: "Instagram", linkedin: "LinkedIn",
+    facebook: "Facebook", x: "X", tiktok: "TikTok", youtube: "YouTube",
+    telegram: "Telegram", email: "Email", phone: "Phone", maps: "Location on the map",
+    check: "", clock: "Working hours"
+  };
+  var LABELS = EN ? LABELS_EN : LABELS_AR;
   function icon(name) {
     return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (ICONS[name] || "") + "</svg>";
   }
@@ -116,10 +125,11 @@
     }
   });
   /* ---------- الفريق: الأسماء والصور وروابط الواتساب ---------- */
+  var NSUF = EN ? "_EN" : "";
   var team = [
-    { name: val("PARTNER_1_NAME"), photo: val("PARTNER_1_PHOTO"),
+    { name: val("PARTNER_1_NAME" + NSUF) || val("PARTNER_1_NAME"), photo: val("PARTNER_1_PHOTO"),
       whatsapp: val("PARTNER_1_WHATSAPP"), email: val("PARTNER_1_EMAIL") },
-    { name: val("PARTNER_2_NAME"), photo: val("PARTNER_2_PHOTO"),
+    { name: val("PARTNER_2_NAME" + NSUF) || val("PARTNER_2_NAME"), photo: val("PARTNER_2_PHOTO"),
       whatsapp: val("PARTNER_2_WHATSAPP"), email: val("PARTNER_2_EMAIL") }
   ];
   document.querySelectorAll("[data-person]").forEach(function (card, i) {
@@ -187,7 +197,10 @@
   /* ---------- صف التواصل الاجتماعي في التذييل ----------
      ترتيب ثابت من خمس منصات. الرابط غير المعبّأ في env.js يبقى
      عنصراً نائباً ظاهراً ليسهل العثور عليه واستبداله. */
-  var FOOTER_SOCIAL = [
+  var FOOTER_SOCIAL = EN ? [
+    ["tiktok", "[tiktok-link]"], ["instagram", "[instagram-link]"], ["x", "[x-link]"],
+    ["facebook", "[facebook-link]"], ["linkedin", "[linkedin-link]"]
+  ] : [
     ["tiktok",    "[رابط-تيك-توك]"],
     ["instagram", "[رابط-إنستجرام]"],
     ["x",         "[رابط-إكس]"],
@@ -207,17 +220,19 @@
   /* ---------- قائمة وسائل التواصل (صفحة تواصل معنا) ---------- */
   document.querySelectorAll("[data-contact-list]").forEach(function (list) {
     var rows = [];
-    rows.push(["whatsapp", "واتساب", "راسلنا مباشرة على واتساب", mainWa]);
-    if (email)  rows.push(["email", "البريد الإلكتروني", email, "mailto:" + email]);
-    if (phone)  rows.push(["phone", "هاتف المكتب", val("PHONE"), phone]);
+    rows.push(["whatsapp", pick("واتساب", "WhatsApp"),
+      pick("راسلنا مباشرة على واتساب", "Message us directly on WhatsApp"), mainWa]);
+    if (email)  rows.push(["email", pick("البريد الإلكتروني", "Email"), email, "mailto:" + email]);
+    if (phone)  rows.push(["phone", pick("هاتف المكتب", "Office phone"), val("PHONE"), phone]);
 
-    var addr = [val("ADDRESS_STREET"), val("ADDRESS_DISTRICT"),
-                val("ADDRESS_REGION")].filter(Boolean).join("، ");
-    rows.push(["maps", "العنوان",
-      (addr ? addr + "<br>" : "") + "إسطنبول، تركيا", maps || ""]);
+    var suf = EN ? "_EN" : "";
+    var addr = [val("ADDRESS_STREET" + suf), val("ADDRESS_DISTRICT" + suf),
+                val("ADDRESS_REGION" + suf)].filter(Boolean).join(EN ? ", " : "، ");
+    rows.push(["maps", pick("العنوان", "Address"),
+      (addr ? addr + "<br>" : "") + pick("إسطنبول، تركيا", "Istanbul, Türkiye"), maps || ""]);
 
     var hours = val("WORK_HOURS");
-    if (hours) rows.push(["clock", "ساعات العمل", hours, ""]);
+    if (hours) rows.push(["clock", pick("ساعات العمل", "Working hours"), hours, ""]);
 
     list.innerHTML = rows.map(function (r) {
       var body = r[3]

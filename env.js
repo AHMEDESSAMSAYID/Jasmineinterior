@@ -49,6 +49,11 @@ window.ENV = {
   ADDRESS_DISTRICT:     "حي شيرين إفلر",
   ADDRESS_REGION:       "بهتشيلي إفلر",
 
+  /* نفس العنوان بالحروف اللاتينية — يظهر في النسخة الإنجليزية */
+  ADDRESS_STREET_EN:    "Mareşal Fevzi Çakmak 3. Sk., Karadağ Apt. No: 12/A",
+  ADDRESS_DISTRICT_EN:  "Şirinevler Mah.",
+  ADDRESS_REGION_EN:    "Bahçelievler",
+
   /* ---------------------------------------------------------------
      ٥ · بيانات الشركة  (من الشهادة الضريبية)
      --------------------------------------------------------------- */
@@ -62,10 +67,12 @@ window.ENV = {
      الصور: ضعها في مجلد assets/team/ وغيّر المسار هنا.
      --------------------------------------------------------------- */
   PARTNER_1_NAME:       "أحمد سيداوغلو",
+  PARTNER_1_NAME_EN:    "Ahmed Sayitoglu",
   PARTNER_1_EMAIL:      "a.sayitoglu@jasminetur.com",
   PARTNER_1_PHOTO:      "assets/team/1784018649306.jpg",
 
   PARTNER_2_NAME:       "أشرف عصام",
+  PARTNER_2_NAME_EN:    "Ashraf Essam",
   PARTNER_2_EMAIL:      "ashraf@jasminetur.com",
   PARTNER_2_PHOTO:      "assets/team/ashraf.jpeg",
 

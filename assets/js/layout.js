@@ -5,10 +5,45 @@
 
   var BASE = window.SITE_BASE || "";          // "" في الجذر، "../" داخل مجلد products
   var HERE = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-  var INPRODUCTS = /\/products\//.test(location.pathname) || window.SITE_BASE === "../";
+  var INPRODUCTS = window.SITE_IN_PRODUCTS != null
+    ? !!window.SITE_IN_PRODUCTS
+    : /\/products\//.test(location.pathname);
+
+  /* ---------- اللغة ---------- */
+  var LANG = document.documentElement.lang === "en" ? "en" : "ar";
+  var EN = LANG === "en";
+
+  /* نصوص الهيدر والتذييل بالعربية والإنجليزية */
+  var T = {
+    tagline:   { ar: "مكتب في إسطنبول · نخدم السوق السعودي والخليج",
+                 en: "Istanbul office · serving Saudi Arabia and the Gulf" },
+    email:     { ar: "البريد الإلكتروني", en: "Email" },
+    division:  { ar: "للتشطيبات والتجهيزات", en: "Interiors & Fit-Out" },
+    quote:     { ar: "اطلب عرض سعر", en: "Request a quote" },
+    menu:      { ar: "القائمة", en: "Menu" },
+    mainMenu:  { ar: "القائمة الرئيسية", en: "Main menu" },
+    mobMenu:   { ar: "القائمة الرئيسية للجوال", en: "Mobile menu" },
+    skip:      { ar: "تخطَّ إلى المحتوى", en: "Skip to content" },
+    social:    { ar: "حسابات التواصل الاجتماعي", en: "Social accounts" },
+    waAria:    { ar: "تواصل معنا على واتساب", en: "Message us on WhatsApp" },
+    switcher:  { ar: "English", en: "العربية" },
+    fSupply:   { ar: "مجالات التوريد", en: "What we source" },
+    fCompany:  { ar: "الشركة", en: "Company" },
+    fContact:  { ar: "العنوان والتواصل", en: "Address & contact" },
+    fBlurb:    { ar: "قسم التشطيبات والتجهيزات — تابع لشركة جاسمين للاستيراد والتصدير.<br>شركة مسجلة في تركيا منذ ",
+                 en: "The interiors and fit-out division of Jasmine Import &amp; Export.<br>Registered in Türkiye since " },
+    fCity:     { ar: "إسطنبول، تركيا", en: "Istanbul, Türkiye" },
+    taxNo:     { ar: "الرقم الضريبي: ", en: "Tax No: " },
+    taxOffice: { ar: " — مديرية ضرائب ", en: " — " },
+    taxSuffix: { ar: "", en: " Tax Office" },
+    rights:    { ar: "جاسمين للاستيراد والتصدير. جميع الحقوق محفوظة.",
+                 en: "Jasmine Import &amp; Export. All rights reserved." }
+  };
+  function t(key) { return T[key][LANG]; }
+  var SUF = EN ? "_EN" : "";   // لاحقة مفاتيح العنوان
 
   /* ---------- بنية القائمة ---------- */
-  var NAV = [
+  var NAV_AR = [
     { label: "الرئيسية", href: "index.html" },
     { label: "مجالات التوريد", href: "products/index.html", children: [
       { label: "جميع المجالات", href: "products/index.html", note: "نظرة عامة على ما نوفّره" },
@@ -26,6 +61,49 @@
     ]},
     { label: "تواصل معنا", href: "contact.html" }
   ];
+  var NAV_EN = [
+    { label: "Home", href: "index.html" },
+    { label: "What we source", href: "products/index.html", children: [
+      { label: "All areas", href: "products/index.html", note: "An overview of what we supply" },
+      { sep: true },
+      { label: "Bathroom fit-out", href: "products/bathroom.html" },
+      { label: "Restaurant & hotel fit-out", href: "products/hospitality.html" },
+      { label: "Finishes & hardware", href: "products/finishes.html" }
+    ]},
+    { label: "How we work", href: "process.html" },
+    { label: "Why us", href: "about.html#why" },
+    { label: "Company", href: "about.html", children: [
+      { label: "About us", href: "about.html", note: "Who we are and how we started" },
+      { label: "The team", href: "about.html#team" },
+      { label: "Shipment record", href: "shipments.html" }
+    ]},
+    { label: "Contact", href: "contact.html" }
+  ];
+  var NAV = EN ? NAV_EN : NAV_AR;
+
+  var FOOT_SUPPLY = EN ? [
+      ["Bathroom fit-out", "products/bathroom.html"],
+      ["Restaurant & hotel fit-out", "products/hospitality.html"],
+      ["Finishes & hardware", "products/finishes.html"]
+    ] : [
+      ["تجهيزات الحمام", "products/bathroom.html"],
+      ["تجهيزات المطاعم والفنادق", "products/hospitality.html"],
+      ["التشطيبات والإكسسوارات", "products/finishes.html"]
+    ];
+  var FOOT_COMPANY = EN ? [
+      ["About us", "about.html"], ["How we work", "process.html"],
+      ["Shipment record", "shipments.html"], ["Contact", "contact.html"]
+    ] : [
+      ["من نحن", "about.html"], ["آلية العمل", "process.html"],
+      ["سجل الشحنات", "shipments.html"], ["تواصل معنا", "contact.html"]
+    ];
+
+  /* رابط تبديل اللغة: نفس الصفحة في اللغة الأخرى */
+  function switcherHref() {
+    var file = HERE === "" ? "index.html" : HERE;
+    if (EN) return (INPRODUCTS ? "../../" : "../") + (INPRODUCTS ? "products/" : "") + file;
+    return (INPRODUCTS ? "../en/products/" : "en/") + file;
+  }
 
   function url(href) {
     if (/^(https?:|mailto:|tel:|#)/.test(href)) return href;
@@ -79,27 +157,29 @@
     }).join("");
 
     return '' +
-    '<a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>' +
+    '<a class="skip-link" href="#main">' + t("skip") + '</a>' +
     '<div class="topstrip"><div class="wrap">' +
-      '<span>مكتب في إسطنبول · نخدم السوق السعودي والخليج</span>' +
+      '<span>' + t("tagline") + '</span>' +
       '<span class="ts-links">' +
-        '<a data-email data-email-text href="mailto:">البريد الإلكتروني</a>' +
+        '<a data-email data-email-text href="mailto:">' + t("email") + '</a>' +
+        '<a class="lang-switch" href="' + switcherHref() + '" lang="' + (EN ? "ar" : "en") + '">' +
+          t("switcher") + '</a>' +
       '</span>' +
     '</div></div>' +
     '<header class="site-header">' +
       '<div class="header-main"><div class="wrap">' +
-        '<a class="lockup" href="' + url("index.html") + '">' +'<span class="logo-mark" aria-hidden="true">J</span>' +'<span class="logo-type"><b>JASMINE</b><span>للتشطيبات والتجهيزات</span></span>' +'</a>' +
-        '<nav aria-label="القائمة الرئيسية"><ul class="nav">' + desktop + '</ul></nav>' +
+        '<a class="lockup" href="' + url("index.html") + '">' +'<span class="logo-mark" aria-hidden="true">J</span>' +'<span class="logo-type"><b>JASMINE</b><span>' + t("division") + '</span></span>' +'</a>' +
+        '<nav aria-label="' + t("mainMenu") + '"><ul class="nav">' + desktop + '</ul></nav>' +
         '<div class="nav-cta">' +
-          '<a class="btn btn-sm" data-wa data-icon="whatsapp" href="' + url("contact.html") + '">اطلب عرض سعر</a>' +
+          '<a class="btn btn-sm" data-wa data-icon="whatsapp" href="' + url("contact.html") + '">' + t("quote") + '</a>' +
           '<button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" ' +
-          'aria-label="القائمة"><span></span><span></span><span></span></button>' +
+          'aria-label="' + t("menu") + '"><span></span><span></span><span></span></button>' +
         '</div>' +
       '</div></div>' +
-      '<nav class="mobile-nav" id="mobile-nav" aria-label="القائمة الرئيسية للجوال">' +
+      '<nav class="mobile-nav" id="mobile-nav" aria-label="' + t("mobMenu") + '">' +
         '<ul>' + mobile + '</ul>' +
         '<div class="m-cta"><a class="btn" data-wa data-icon="whatsapp" href="' +
-        url("contact.html") + '">اطلب عرض سعر</a></div>' +
+        url("contact.html") + '">' + t("quote") + '</a></div>' +
       '</nav>' +
     '</header>';
   }
@@ -116,38 +196,29 @@
         '<div>' +
           '<a class="lockup" href="' + url("index.html") + '">' +
             '<span class="logo-mark" aria-hidden="true">J</span>' +
-            '<span class="logo-type"><b>JASMINE</b><span>للتشطيبات والتجهيزات</span></span>' +
+            '<span class="logo-type"><b>JASMINE</b><span>' + t("division") + '</span></span>' +
           '</a>' +
-          '<p>قسم التشطيبات والتجهيزات — تابع لشركة جاسمين للاستيراد والتصدير.<br>' +
-          'شركة مسجلة في تركيا منذ <span class="fill" data-env="FOUNDED_YEAR" data-ar-digits>[٢٠١٧]</span>.</p></div>' +
-        '<div><strong>مجالات التوريد</strong>' + links([
-          ["تجهيزات الحمام", "products/bathroom.html"],
-          ["تجهيزات المطاعم والفنادق", "products/hospitality.html"],
-          ["التشطيبات والإكسسوارات", "products/finishes.html"]
-        ]) + '</div>' +
-        '<div><strong>الشركة</strong>' + links([
-          ["من نحن", "about.html"],
-          ["آلية العمل", "process.html"],
-          ["سجل الشحنات", "shipments.html"],
-          ["تواصل معنا", "contact.html"]
-        ]) + '</div>' +
-        '<div><strong>العنوان والتواصل</strong>' +
-          '<p><span class="fill" data-env="ADDRESS_STREET">[اسم الشارع ورقم المبنى]</span><br>' +
-          '<span class="fill" data-env="ADDRESS_DISTRICT">[الحي]</span> — ' +
-          '<span class="fill" data-env="ADDRESS_REGION">[المنطقة]</span><br>' +
-          'إسطنبول، تركيا<br>' +
-          '<a data-email data-email-text href="mailto:">البريد الإلكتروني</a></p></div>' +
+          '<p>' + t("fBlurb") +
+          '<span class="fill" data-env="FOUNDED_YEAR"' + (EN ? "" : " data-ar-digits") + '>2023</span>.</p></div>' +
+        '<div><strong>' + t("fSupply") + '</strong>' + links(FOOT_SUPPLY) + '</div>' +
+        '<div><strong>' + t("fCompany") + '</strong>' + links(FOOT_COMPANY) + '</div>' +
+        '<div><strong>' + t("fContact") + '</strong>' +
+          '<p><span class="fill" data-env="ADDRESS_STREET' + SUF + '">-</span><br>' +
+          '<span class="fill" data-env="ADDRESS_DISTRICT' + SUF + '">-</span> \u2014 ' +
+          '<span class="fill" data-env="ADDRESS_REGION' + SUF + '">-</span><br>' +
+          t("fCity") + '<br>' +
+          '<a data-email data-email-text href="mailto:">' + t("email") + '</a></p></div>' +
       '</div>' +
-      '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
+      '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="' + t("social") + '"></ul></div>' +
       '<div class="legal">' +
         '<span data-env="COMPANY_LEGAL_NAME" dir="ltr"></span><br>' +
-        'الرقم الضريبي: <span class="fill" data-env="TAX_NUMBER">[الرقم الضريبي]</span> — ' +
-        'مديرية ضرائب <span class="fill" data-env="TAX_OFFICE">[المديرية]</span><br>' +
-        '© <span id="yr">2026</span> جاسمين للاستيراد والتصدير. جميع الحقوق محفوظة.' +
+        t("taxNo") + '<span class="fill" data-env="TAX_NUMBER">-</span>' + t("taxOffice") +
+        '<span class="fill" data-env="TAX_OFFICE">-</span>' + t("taxSuffix") + '<br>' +
+        '\u00A9 <span id="yr">2026</span> ' + t("rights") +
       '</div>' +
     '</div></footer>' +
     '<a class="wa-float" data-wa data-icon="whatsapp" href="' + url("contact.html") +
-    '" aria-label="تواصل معنا على واتساب"></a>';
+    '" aria-label="' + t("waAria") + '"></a>';
   }
 
   /* ---------- الحقن ---------- */
