@@ -121,7 +121,7 @@
             '<span class="logo-type"><b>JASMINE</b><span>للتشطيبات والتجهيزات</span></span>' +
           '</a>' +
           '<p>قسم التشطيبات والتجهيزات — تابع لشركة جاسمين للاستيراد والتصدير.<br>' +
-          'شركة مسجلة في تركيا منذ <span class="fill" data-cfg="business.foundedYear" data-ar-digits>[٢٠١٧]</span>.</p></div>' +
+          'شركة مسجلة في تركيا منذ <span class="fill" data-env="FOUNDED_YEAR" data-ar-digits>[٢٠١٧]</span>.</p></div>' +
         '<div><strong>مجالات التوريد</strong>' + links([
           ["تجهيزات الحمام", "products/bathroom.html"],
           ["تجهيزات المطاعم والفنادق", "products/hospitality.html"],
@@ -135,17 +135,17 @@
           ["تواصل معنا", "contact.html"]
         ]) + '</div>' +
         '<div><strong>العنوان والتواصل</strong>' +
-          '<p><span class="fill" data-cfg="business.address.street">[اسم الشارع ورقم المبنى]</span><br>' +
-          '<span class="fill" data-cfg="business.address.district">[الحي]</span> — ' +
-          '<span class="fill" data-cfg="business.address.region">[المنطقة]</span><br>' +
+          '<p><span class="fill" data-env="ADDRESS_STREET">[اسم الشارع ورقم المبنى]</span><br>' +
+          '<span class="fill" data-env="ADDRESS_DISTRICT">[الحي]</span> — ' +
+          '<span class="fill" data-env="ADDRESS_REGION">[المنطقة]</span><br>' +
           'إسطنبول، تركيا<br>' +
           '<a data-email href="mailto:">البريد الإلكتروني</a></p></div>' +
       '</div>' +
       '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
       '<div class="legal">' +
-        'رقم السجل التجاري: <span class="fill" data-cfg="business.registrationNumber">[رقم السجل]</span> · ' +
-        'الرقم الضريبي: <span class="fill" data-cfg="business.taxNumber">[الرقم الضريبي]</span> · ' +
-        'عضوية غرفة تجارة إسطنبول: <span class="fill" data-cfg="business.chamberNumber">[رقم العضوية]</span><br>' +
+        'رقم السجل التجاري: <span class="fill" data-env="REGISTRATION_NUMBER">[رقم السجل]</span> · ' +
+        'الرقم الضريبي: <span class="fill" data-env="TAX_NUMBER">[الرقم الضريبي]</span> · ' +
+        'عضوية غرفة تجارة إسطنبول: <span class="fill" data-env="CHAMBER_NUMBER">[رقم العضوية]</span><br>' +
         '© <span id="yr">2026</span> جاسمين للاستيراد والتصدير. جميع الحقوق محفوظة.' +
       '</div>' +
     '</div></footer>' +

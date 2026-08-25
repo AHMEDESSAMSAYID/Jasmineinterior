@@ -1,8 +1,8 @@
-/* موقع جاسمين للتشطيبات — يقرأ config.js ويملأ الروابط والبيانات */
+/* موقع جاسمين للتشطيبات — يقرأ env.js ويملأ الروابط والبيانات */
 (function () {
   "use strict";
 
-  var CFG = window.JASMINE_CONFIG || {};
+  var ENV = window.ENV || {};
   var BASE = window.SITE_BASE || "";
   function asset(path) {
     if (!path) return "";
@@ -10,14 +10,10 @@
   }
 
   /* ---------- أدوات مساعدة ---------- */
-  function get(path) {
-    return path.split(".").reduce(function (o, k) {
-      return o && o[k] != null ? o[k] : null;
-    }, CFG);
-  }
-  function val(path) {
-    var v = get(path);
-    return typeof v === "string" ? v.trim() : v ? String(v) : "";
+  /* كل القيم متغيرات مسطّحة في env.js — val("EMAIL") تقرأ ENV.EMAIL */
+  function val(key) {
+    var v = ENV[key];
+    return typeof v === "string" ? v.trim() : v != null ? String(v) : "";
   }
   var AR_DIGITS = "\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669";
   function toArabicDigits(str) {
@@ -94,8 +90,8 @@
   window.JASMINE_ICON = icon;
 
   /* ---------- تعبئة النصوص من الإعدادات ---------- */
-  document.querySelectorAll("[data-cfg]").forEach(function (el) {
-    var v = val(el.getAttribute("data-cfg"));
+  document.querySelectorAll("[data-env]").forEach(function (el) {
+    var v = val(el.getAttribute("data-env"));
     if (v) {
       el.textContent = el.hasAttribute("data-ar-digits") ? toArabicDigits(v) : v;
       el.classList.remove("fill");
@@ -103,14 +99,14 @@
   });
 
   /* ---------- روابط الواتساب ---------- */
-  var mainWa = waLink(val("whatsapp"));
+  var mainWa = waLink(val("WHATSAPP_MAIN"));
   document.querySelectorAll("[data-wa]").forEach(function (el) {
     if (mainWa) el.setAttribute("href", mainWa);
     else el.setAttribute("href", "#contact");
   });
 
   /* ---------- البريد والقسم الغذائي والخريطة ---------- */
-  var email = val("business.email");
+  var email = val("EMAIL");
   document.querySelectorAll("[data-email]").forEach(function (el) {
     if (email) {
       el.setAttribute("href", "mailto:" + email);
@@ -119,13 +115,16 @@
       el.parentNode.removeChild(el);
     }
   });
-  var food = val("business.foodDivisionUrl");
+  var food = val("FOOD_DIVISION_URL");
   document.querySelectorAll("[data-food]").forEach(function (el) {
     if (food) el.setAttribute("href", food);
   });
 
   /* ---------- الفريق: الأسماء والصور وروابط الواتساب ---------- */
-  var team = Array.isArray(CFG.team) ? CFG.team : [];
+  var team = [
+    { name: val("PARTNER_1_NAME"), photo: val("PARTNER_1_PHOTO"), whatsapp: val("PARTNER_1_WHATSAPP") },
+    { name: val("PARTNER_2_NAME"), photo: val("PARTNER_2_PHOTO"), whatsapp: val("PARTNER_2_WHATSAPP") }
+  ];
   document.querySelectorAll("[data-person]").forEach(function (card, i) {
     var p = team[i] || {};
     var nameEl = card.querySelector("[data-person-name]");
@@ -154,19 +153,23 @@
   });
 
   /* ---------- السوشيال ميديا ---------- */
-  var social = CFG.social || {};
+  var SOCIAL_VARS = {
+    instagram: "INSTAGRAM", linkedin: "LINKEDIN", facebook: "FACEBOOK",
+    tiktok: "TIKTOK", youtube: "YOUTUBE", x: "X", telegram: "TELEGRAM"
+  };
+  function socialUrl(key) { return key === "whatsapp" ? mainWa : val(SOCIAL_VARS[key]); }
+
   var order = ["whatsapp", "instagram", "linkedin", "facebook", "tiktok", "youtube", "x", "telegram"];
   var items = [];
 
   order.forEach(function (key) {
-    var url = (social[key] || "").trim();
-    if (!url && key === "whatsapp") url = mainWa;
+    var url = socialUrl(key);
     if (url) items.push({ key: key, url: url });
   });
   if (email) items.push({ key: "email", url: "mailto:" + email });
-  var phone = telLink(val("business.phone"));
+  var phone = telLink(val("PHONE"));
   if (phone) items.push({ key: "phone", url: phone });
-  var maps = val("business.mapsUrl");
+  var maps = val("MAPS_URL");
   if (maps) items.push({ key: "maps", url: maps });
 
   document.querySelectorAll("[data-social]").forEach(function (list) {
@@ -178,7 +181,7 @@
   });
 
   /* ---------- صف التواصل الاجتماعي في التذييل ----------
-     ترتيب ثابت من خمس منصات. الرابط غير المعبّأ في config.js يبقى
+     ترتيب ثابت من خمس منصات. الرابط غير المعبّأ في env.js يبقى
      عنصراً نائباً ظاهراً ليسهل العثور عليه واستبداله. */
   var FOOTER_SOCIAL = [
     ["tiktok",    "[رابط-تيك-توك]"],
@@ -189,7 +192,7 @@
   ];
   document.querySelectorAll("[data-social-footer]").forEach(function (list) {
     list.innerHTML = FOOTER_SOCIAL.map(function (row) {
-      var key = row[0], url = (social[key] || "").trim() || row[1];
+      var key = row[0], url = socialUrl(key) || row[1];
       var ext = /^https?:/i.test(url) ? ' target="_blank" rel="noopener"' : "";
       return '<li><a href="' + url + '"' + ext + ' aria-label="' + LABELS[key] +
              '" title="' + LABELS[key] + '">' + icon(key) + "</a></li>";
@@ -201,16 +204,16 @@
   document.querySelectorAll("[data-contact-list]").forEach(function (list) {
     var rows = [];
     rows.push(["whatsapp", "واتساب",
-      mainWa ? val("whatsapp") : '<span class="fill">[رقم-الواتساب]</span>', mainWa]);
+      mainWa ? val("WHATSAPP_MAIN") : '<span class="fill">[رقم-الواتساب]</span>', mainWa]);
     if (email)  rows.push(["email", "البريد الإلكتروني", email, "mailto:" + email]);
-    if (phone)  rows.push(["phone", "هاتف المكتب", val("business.phone"), phone]);
+    if (phone)  rows.push(["phone", "هاتف المكتب", val("PHONE"), phone]);
 
-    var addr = [val("business.address.street"), val("business.address.district"),
-                val("business.address.region")].filter(Boolean).join("، ");
+    var addr = [val("ADDRESS_STREET"), val("ADDRESS_DISTRICT"),
+                val("ADDRESS_REGION")].filter(Boolean).join("، ");
     rows.push(["maps", "العنوان",
       (addr ? addr + "<br>" : "") + "إسطنبول، تركيا", maps || ""]);
 
-    var hours = val("business.hours");
+    var hours = val("WORK_HOURS");
     if (hours) rows.push(["clock", "ساعات العمل", hours, ""]);
 
     list.innerHTML = rows.map(function (r) {
