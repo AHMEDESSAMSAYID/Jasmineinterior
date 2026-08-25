@@ -31,7 +31,7 @@ window.ENV = {
 | ٢ · السوشيال ميديا | `TIKTOK` · `INSTAGRAM` · `X` · `FACEBOOK` · `LINKEDIN` · `YOUTUBE` · `TELEGRAM` |
 | ٣ · التواصل | `EMAIL` · `PHONE` · `WORK_HOURS` · `MAPS_URL` |
 | ٤ · العنوان | `ADDRESS_STREET` · `ADDRESS_DISTRICT` · `ADDRESS_REGION` |
-| ٥ · بيانات الشركة | `COMPANY_LEGAL_NAME` · `FOUNDED_YEAR` · `TAX_NUMBER` · `TAX_OFFICE` · `REGISTRATION_NUMBER` · `CHAMBER_NUMBER` |
+| ٥ · بيانات الشركة | `COMPANY_LEGAL_NAME` · `FOUNDED_YEAR` · `TAX_NUMBER` · `TAX_OFFICE` |
 | ٦ · الشريكان | `PARTNER_1_NAME` · `PARTNER_1_EMAIL` · `PARTNER_1_PHOTO` · `PARTNER_2_NAME` · `PARTNER_2_EMAIL` · `PARTNER_2_PHOTO` |
 
 قواعد مهمة:
@@ -151,7 +151,6 @@ python3 -m http.server 8000
 ## ✅ قائمة ما قبل النشر
 
 - [ ] وضع روابط السوشيال ميديا في `env.js`
-- [ ] إضافة رقم السجل التجاري ورقم عضوية الغرفة التجارية
 - [ ] رفع صورتَي الشريكين في `assets/team/`
 - [ ] التأكد من عمل زر الواتساب على الجوال
 - [ ] تعبئة قسم «سجل الشحنات» بصور وبيانات الشحنات (متروك فارغاً حالياً عن قصد)

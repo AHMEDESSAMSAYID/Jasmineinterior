@@ -142,9 +142,7 @@
       '<div class="legal">' +
         '<span data-env="COMPANY_LEGAL_NAME" dir="ltr"></span><br>' +
         'الرقم الضريبي: <span class="fill" data-env="TAX_NUMBER">[الرقم الضريبي]</span> — ' +
-        'مديرية ضرائب <span class="fill" data-env="TAX_OFFICE">[المديرية]</span> · ' +
-        'رقم السجل التجاري: <span class="fill" data-env="REGISTRATION_NUMBER">[رقم السجل]</span> · ' +
-        'عضوية غرفة تجارة إسطنبول: <span class="fill" data-env="CHAMBER_NUMBER">[رقم العضوية]</span><br>' +
+        'مديرية ضرائب <span class="fill" data-env="TAX_OFFICE">[المديرية]</span><br>' +
         '© <span id="yr">2026</span> جاسمين للاستيراد والتصدير. جميع الحقوق محفوظة.' +
       '</div>' +
     '</div></footer>' +
