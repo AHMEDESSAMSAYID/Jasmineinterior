@@ -136,7 +136,7 @@
           '<span class="fill" data-env="ADDRESS_DISTRICT">[الحي]</span> — ' +
           '<span class="fill" data-env="ADDRESS_REGION">[المنطقة]</span><br>' +
           'إسطنبول، تركيا<br>' +
-          '<a data-email href="mailto:">البريد الإلكتروني</a></p></div>' +
+          '<a data-email data-email-text href="mailto:">البريد الإلكتروني</a></p></div>' +
       '</div>' +
       '<div class="fsocial"><ul class="social social-footer" data-social-footer aria-label="حسابات التواصل الاجتماعي"></ul></div>' +
       '<div class="legal">' +
