@@ -1,0 +1,21 @@
+# Netlify / Cloudflare Pages — إعادة توجيه دائمة من الروابط القديمة
+/index.html                                /                                301
+/about.html                                /about                           301
+/process.html                              /process                         301
+/shipments.html                            /shipments                       301
+/contact.html                              /contact                         301
+/products/index.html                       /products                        301
+/products/bathroom.html                    /products/bathroom               301
+/products/hospitality.html                 /products/hospitality            301
+/products/finishes.html                    /products/finishes               301
+/products/furnishings.html                 /products                        301
+/en/index.html                             /en/                             301
+/en/about.html                             /en/about                        301
+/en/process.html                           /en/process                      301
+/en/shipments.html                         /en/shipments                    301
+/en/contact.html                           /en/contact                      301
+/en/products/index.html                    /en/products                     301
+/en/products/bathroom.html                 /en/products/bathroom            301
+/en/products/hospitality.html              /en/products/hospitality         301
+/en/products/finishes.html                 /en/products/finishes            301
+/*.html                                    /:splat                          301

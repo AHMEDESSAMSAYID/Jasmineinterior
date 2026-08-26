@@ -69,11 +69,11 @@ window.ENV = {
   PARTNER_1_NAME:       "أحمد سيداوغلو",
   PARTNER_1_NAME_EN:    "Ahmed Sayitoglu",
   PARTNER_1_EMAIL:      "a.sayitoglu@jasminetur.com",
-  PARTNER_1_PHOTO:      "assets/team/1784018649306.jpg",
+  PARTNER_1_PHOTO:      "/assets/team/1784018649306.jpg",
 
   PARTNER_2_NAME:       "أشرف عصام",
   PARTNER_2_NAME_EN:    "Ashraf Essam",
   PARTNER_2_EMAIL:      "ashraf@jasminetur.com",
-  PARTNER_2_PHOTO:      "assets/team/ashraf.jpeg",
+  PARTNER_2_PHOTO:      "/assets/team/ashraf.jpeg",
 
 };

@@ -109,9 +109,19 @@
 
   /* ---------- روابط الواتساب ---------- */
   var mainWa = waLink(val("WHATSAPP_MAIN"));
+  /* رسالة مسبقة مناسبة للصفحة، تُعلنها الصفحة نفسها */
+  function waHref(base) {
+    var topic = window.SITE_WA_TOPIC;
+    return topic ? base + "?text=" + encodeURIComponent(topic) : base;
+  }
   document.querySelectorAll("[data-wa]").forEach(function (el) {
-    if (mainWa) el.setAttribute("href", mainWa);
-    else el.setAttribute("href", "#contact");
+    if (mainWa) {
+      el.setAttribute("href", waHref(mainWa));
+      el.setAttribute("target", "_blank");
+      el.setAttribute("rel", "noopener");
+    } else {
+      el.setAttribute("href", EN ? "/en/contact" : "/contact");
+    }
   });
 
   /* ---------- البريد الإلكتروني ---------- */
@@ -153,7 +163,13 @@
     var link = card.querySelector("[data-person-wa]");
     if (link) {
       var url = waLink(p.whatsapp) || mainWa;
-      link.setAttribute("href", url || "#contact");
+      if (url) {
+        link.setAttribute("href", waHref(url));
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener");
+      } else {
+        link.setAttribute("href", EN ? "/en/contact" : "/contact");
+      }
     }
 
     var box = card.querySelector(".avatar");
@@ -255,7 +271,7 @@
   /* ---------- زر الواتساب العائم ---------- */
   var float = document.querySelector(".wa-float");
   if (float) {
-    if (mainWa) float.setAttribute("href", mainWa);
+    if (mainWa) float.setAttribute("href", waHref(mainWa));
     else float.remove();
   }
 

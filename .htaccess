@@ -1,0 +1,27 @@
+# Apache — روابط نظيفة وإعادة توجيه دائمة
+RewriteEngine On
+
+# 1) أي رابط ينتهي بـ .html يُعاد توجيهه 301 إلى نظيره النظيف
+RewriteCond %{THE_REQUEST} \s/(.*?)index\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+RewriteCond %{THE_REQUEST} \s/(.+?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 2) خدمة الملف الفعلي داخلياً بلا امتداد
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*[^/])$ /$1/ [L,R=301]
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.*)$ $1/index.html [L]
+
+# 3) ضغط وتخزين مؤقت
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
